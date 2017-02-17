@@ -6,6 +6,9 @@ RUN apt-get update -y \
         git             \
         openssh-client  \
         php5            \
+        php5-curl       \
+        php5-gd         \
+        php5-xsl        \
         rsync           \
         wget            \
     && rm -rf /var/lib/apt/lists/*
