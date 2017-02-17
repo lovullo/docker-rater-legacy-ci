@@ -5,6 +5,7 @@ RUN apt-get update -y \
         ant             \
         git             \
         openssh-client  \
+        php5            \
         rsync           \
         wget            \
     && rm -rf /var/lib/apt/lists/*
@@ -28,6 +29,13 @@ RUN wget http://dl.google.com/closure-compiler/compiler-20161201.tar.gz \
     && chown root:root /usr/share/ant/lib/closure-compiler.jar \
     && chmod 0644 /usr/share/ant/lib/closure-compiler.jar \
     && rm compiler-20161201.tar.gz
+
+# Install Composer
+RUN curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
+    && curl -o /tmp/composer-setup.sig https://composer.github.io/installer.sig \
+    && php -r "if (hash('SHA384', file_get_contents('/tmp/composer-setup.php')) !== trim(file_get_contents('/tmp/composer-setup.sig'))) { unlink('/tmp/composer-setup.php'); echo 'Invalid installer' . PHP_EOL; exit(1);  }" \
+    && php /tmp/composer-setup.php --no-ansi --install-dir=/usr/local/bin --filename=composer \
+    && rm /tmp/composer-setup.php
 
 # Disable host key checking from within builds as we cannot interactively accept them
 # TODO: It might be a better idea to bake ~/.ssh/known_hosts into the container
