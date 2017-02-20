@@ -3,7 +3,9 @@ FROM openjdk:7
 RUN apt-get update -y \
     && apt-get install -y \
         ant            \
+        gawk           \
         git            \
+        make           \
         openssh-client \
         rsync          \
         wget           \
