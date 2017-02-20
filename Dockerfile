@@ -2,15 +2,11 @@ FROM openjdk:7
 
 RUN apt-get update -y \
     && apt-get install -y \
-        ant             \
-        git             \
-        openssh-client  \
-        php5            \
-        php5-curl       \
-        php5-gd         \
-        php5-xsl        \
-        rsync           \
-        wget            \
+        ant            \
+        git            \
+        openssh-client \
+        rsync          \
+        wget           \
     && rm -rf /var/lib/apt/lists/*
 
 # Download and install Saxon 8
@@ -28,13 +24,6 @@ RUN wget http://dl.google.com/closure-compiler/compiler-20161201.tar.gz \
     && chmod 0644 /usr/share/ant/lib/closure-compiler.jar \
     && rm compiler-20161201.tar.gz
 
-# Install Composer
-RUN curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
-    && curl -o /tmp/composer-setup.sig https://composer.github.io/installer.sig \
-    && php -r "if (hash('SHA384', file_get_contents('/tmp/composer-setup.php')) !== trim(file_get_contents('/tmp/composer-setup.sig'))) { unlink('/tmp/composer-setup.php'); echo 'Invalid installer' . PHP_EOL; exit(1);  }" \
-    && php /tmp/composer-setup.php --no-ansi --install-dir=/usr/local/bin --filename=composer \
-    && rm /tmp/composer-setup.php
-    
 # Install NodeJS/NPM
 # gpg keys listed at https://github.com/nodejs/node
 RUN set -ex \
