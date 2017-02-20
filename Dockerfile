@@ -7,6 +7,7 @@ RUN apt-get update -y \
         git            \
         make           \
         openssh-client \
+        php5           \
         rsync          \
         wget           \
     && rm -rf /var/lib/apt/lists/*
