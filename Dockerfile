@@ -3,6 +3,8 @@ FROM openjdk:7
 RUN apt-get update -y \
     && apt-get install -y \
         ant            \
+        autoconf       \
+        automake       \
         gawk           \
         git            \
         make           \
